@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-white p-6" @keyup.enter="doSearch">
-    <div class="flex flex-wrap -mx-3 mb-6">
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+  <div class="bg-white p-6 pt-4" @keyup.enter="doSearch">
+    <div class="flex flex-wrap -mx-3 mb-4">
+      <div class="w-full md:w-1/2 px-3">
         <label
           for="municipality"
           class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -17,7 +17,7 @@
         />
       </div>
 
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <div class="w-full md:w-1/2 px-3">
         <label
           for="postalCode"
           class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -33,14 +33,14 @@
         />
       </div>
     </div>
-    <ul v-if="materialTypes.length > 0" class="flex flex-wrap my-4">
+    <ul v-if="materialTypes.length > 0" class="flex flex-wrap my-2">
       <li
         v-for="materialType in materialTypes"
         :key="materialType.code"
         class="mr-4 mb-2"
       >
         <label
-          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 cursor-pointer"
         >
           <input
             type="checkbox"
@@ -55,7 +55,7 @@
 
     <button
       type="submit"
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      class="bg-purple-500 hover:bg-purple-700 text-white uppercase font-semibold py-2 px-4 rounded outlin"
       @click="doSearch"
     >
       Search

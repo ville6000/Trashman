@@ -8,6 +8,6 @@
 
 <style scoped>
 header {
-  @apply bg-white px-6 py-2;
+  @apply bg-white px-6 pt-4;
 }
 </style>
