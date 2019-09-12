@@ -1,28 +1,75 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <AppHeader></AppHeader>
+    <SearchForm v-on:search="search"></SearchForm>
+    <SearchResults :collectionSpots="collectionSpots"></SearchResults>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios";
+import AppHeader from "./components/AppHeader";
+import SearchForm from "./components/SearchForm";
+import SearchResults from "./components/SearchResults";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
+    AppHeader,
+    SearchForm,
+    SearchResults
+  },
+  data() {
+    return {
+      collectionSpots: []
+    };
+  },
+  methods: {
+    search(params) {
+      const query = {};
+
+      if (params.municipality) {
+        query["municipality"] = params.municipality;
+      }
+
+      if (params.postalCode) {
+        query["postal_code"] = params.postalCode;
+      }
+
+      if (params.material && params.material.length > 0) {
+        query["material"] = params.material.join(",");
+      }
+
+      this.$router.push({ path: "/", query }, () => {}, () => {});
+      this.doSearch(params.municipality, params.postalCode, params.material);
+    },
+    doSearch() {
+      const query = this.$route.query;
+      const params = Object.keys(query)
+        .map(function(k) {
+          return encodeURIComponent(k) + "=" + encodeURIComponent(query[k]);
+        })
+        .join("&");
+
+      axios
+        .get(
+          `${process.env.VUE_APP_API_URL}/collectionspots/?api_key=${process.env.VUE_APP_API_KEY}&${params}`
+        )
+        .then(response => {
+          this.collectionSpots = response.data.results;
+        });
+    }
+  },
+  mounted() {
+    if (this.$route.query) {
+      this.doSearch();
+    }
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  @apply bg-gray-100;
 }
 </style>

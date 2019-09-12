@@ -1,4 +1,6 @@
-# trashman-vue
+# Trashman
+
+Simple Vue.js app for learning purposes using https://kierratys.info API
 
 ## Project setup
 ```
