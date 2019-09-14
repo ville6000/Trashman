@@ -4,7 +4,7 @@
       <CollectionSpot
         v-for="collectionSpot in collectionSpots"
         :key="collectionSpot.spot_id"
-        class="sm:w-1/2  lg:w-1/4 my-2"
+        class="sm:w-1/2 my-2"
         :collectionSpot="collectionSpot"
       ></CollectionSpot>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="px-2">
+  <div class="w-full px-2">
     <div class="px-4 py-4 rounded overflow-hidden shadow-lg bg-white">
       <h2 class="font-bold text-gray-700 text-xl mb-2 leading-tight">
         {{ collectionSpot.name }}
