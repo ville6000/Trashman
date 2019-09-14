@@ -1,14 +1,11 @@
 <template>
   <div id="app" class="flex flex-wrap">
-    <div class="md:w-1/2">
+    <div class="h-full md:w-1/2">
       <AppHeader></AppHeader>
       <SearchForm v-on:search="search"></SearchForm>
       <SearchResults :collectionSpots="collectionSpots"></SearchResults>
     </div>
-    <MapContainer
-      :collectionSpots="collectionSpots"
-      class="md:w-1/2"
-    ></MapContainer>
+    <MapContainer :collectionSpots="collectionSpots" class="md:w-1/2"></MapContainer>
   </div>
 </template>
 

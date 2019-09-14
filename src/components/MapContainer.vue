@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="map-container overflow-hidden bg-white"
-    v-if="collectionSpots.length > 0"
-  >
+  <div class="map-container overflow-hidden bg-white" v-if="validCollectionSpots.length > 0">
     <l-map
       ref="trashMap"
       :zoom="zoom"
@@ -14,19 +11,28 @@
       <l-tile-layer :url="url"></l-tile-layer>
 
       <l-marker
-        v-for="collectionSpot in collectionSpots"
+        v-for="collectionSpot in validCollectionSpots"
         :key="collectionSpot.spot_id"
-        :lat-lng="collectionSpot.geometry.coordinates"
+        :lat-lng="{lat: collectionSpot.geometry.coordinates[1], lng: collectionSpot.geometry.coordinates[0]}"
+        :title="collectionSpot.name"
       >
+        <l-popup>
+          <h3 class="text-xl">{{ collectionSpot.name }}</h3>
+          <p>{{ collectionSpot.address }}</p>
+          <p v-html="collectionSpot.additional_details "></p>
+          <p v-html="collectionSpot.opening_hours "></p>
+        </l-popup>
       </l-marker>
     </l-map>
   </div>
 </template>
 
 <script>
-import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
-import { Icon } from "leaflet";
+import { LMap, LTileLayer, LMarker, LPopup } from "vue2-leaflet";
+import { latLngBounds } from "leaflet";
 import "leaflet/dist/leaflet.css";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css"; // Re-uses images from ~leaflet package
+import "leaflet-defaulticon-compatibility";
 
 export default {
   name: "MapContainer",
@@ -35,7 +41,7 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    Icon
+    LPopup
   },
   data() {
     return {
@@ -54,7 +60,49 @@ export default {
     },
     boundsUpdated(bounds) {
       this.bounds = bounds;
+    },
+    zoomToBounds() {
+      if (
+        this.validCollectionSpots.length === 0 ||
+        typeof this.$refs.trashMap === "undefined"
+      ) {
+        return;
+      }
+
+      const bounds = latLngBounds();
+      this.validCollectionSpots.forEach(spot => {
+        bounds.extend({
+          lat: spot.geometry.coordinates[1],
+          lng: spot.geometry.coordinates[0]
+        });
+      });
+
+      if (bounds.isValid()) {
+        this.$refs.trashMap.mapObject.fitBounds(bounds);
+      }
     }
+  },
+  computed: {
+    validCollectionSpots: function() {
+      const zeroPoint = 0.0;
+
+      const spots = this.collectionSpots.filter(spot => {
+        return (
+          spot.geometry.coordinates[0] !== zeroPoint &&
+          spot.geometry.coordinates[1] !== zeroPoint
+        );
+      });
+
+      return spots;
+    }
+  },
+  watch: {
+    collectionSpots: function() {
+      this.zoomToBounds();
+    }
+  },
+  mounted() {
+    this.zoomToBounds();
   }
 };
 </script>
@@ -64,4 +112,3 @@ export default {
   height: 100vh;
 }
 </style>
-
