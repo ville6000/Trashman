@@ -86,14 +86,9 @@ export default {
     validCollectionSpots: function() {
       const zeroPoint = 0.0;
 
-      const spots = this.collectionSpots.filter(spot => {
-        return (
-          spot.geometry.coordinates[0] !== zeroPoint &&
-          spot.geometry.coordinates[1] !== zeroPoint
-        );
+      return this.collectionSpots.filter(spot => {
+        return !spot.geometry.coordinates.includes(zeroPoint);
       });
-
-      return spots;
     }
   },
   watch: {
