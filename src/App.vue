@@ -3,6 +3,7 @@
     <div class="h-full md:w-1/2">
       <AppHeader></AppHeader>
       <SearchForm v-on:search="search"></SearchForm>
+      <ResultCount :resultCount="resultCount"></ResultCount>
       <SearchResults :collectionSpots="collectionSpots"></SearchResults>
     </div>
     <MapContainer :collectionSpots="collectionSpots" class="md:w-1/2"></MapContainer>
@@ -13,6 +14,7 @@
 import axios from "axios";
 import AppHeader from "./components/AppHeader";
 import SearchForm from "./components/SearchForm";
+import ResultCount from "./components/ResultCount";
 import SearchResults from "./components/SearchResults";
 import MapContainer from "./components/MapContainer";
 
@@ -21,12 +23,17 @@ export default {
   components: {
     AppHeader,
     SearchForm,
+    ResultCount,
     SearchResults,
     MapContainer
   },
   data() {
     return {
-      collectionSpots: []
+      collectionSpots: [],
+      resultCount: {
+        count: 0,
+        results: 0
+      }
     };
   },
   methods: {
@@ -62,6 +69,8 @@ export default {
         )
         .then(response => {
           this.collectionSpots = response.data.results;
+          this.resultCount.results = response.data.results.length;
+          this.resultCount.count = response.data.count;
         });
     }
   },
