@@ -1,8 +1,11 @@
 <template>
-  <div id="app">
-    <AppHeader></AppHeader>
-    <SearchForm v-on:search="search"></SearchForm>
-    <SearchResults :collectionSpots="collectionSpots"></SearchResults>
+  <div id="app" class="flex flex-wrap">
+    <div class="h-full md:w-1/2">
+      <AppHeader></AppHeader>
+      <SearchForm v-on:search="search"></SearchForm>
+      <SearchResults :collectionSpots="collectionSpots"></SearchResults>
+    </div>
+    <MapContainer :collectionSpots="collectionSpots" class="md:w-1/2"></MapContainer>
   </div>
 </template>
 
@@ -11,13 +14,15 @@ import axios from "axios";
 import AppHeader from "./components/AppHeader";
 import SearchForm from "./components/SearchForm";
 import SearchResults from "./components/SearchResults";
+import MapContainer from "./components/MapContainer";
 
 export default {
   name: "app",
   components: {
     AppHeader,
     SearchForm,
-    SearchResults
+    SearchResults,
+    MapContainer
   },
   data() {
     return {
