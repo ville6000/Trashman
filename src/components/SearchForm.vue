@@ -5,9 +5,7 @@
         <label
           for="municipality"
           class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-        >
-          Municipality
-        </label>
+        >Municipality</label>
         <input
           type="text"
           name="municipality"
@@ -21,9 +19,7 @@
         <label
           for="postalCode"
           class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-        >
-          Postal Code
-        </label>
+        >Postal Code</label>
         <input
           type="text"
           name="postalCode"
@@ -34,11 +30,7 @@
       </div>
     </div>
     <ul v-if="materialTypes.length > 0" class="flex flex-wrap my-2">
-      <li
-        v-for="materialType in materialTypes"
-        :key="materialType.code"
-        class="mr-4 mb-2"
-      >
+      <li v-for="materialType in materialTypes" :key="materialType.code" class="mr-4 mb-2">
         <label
           class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 cursor-pointer"
         >
@@ -55,11 +47,9 @@
 
     <button
       type="submit"
-      class="bg-purple-500 hover:bg-purple-700 text-white uppercase font-semibold py-2 px-4 rounded outlin"
+      class="bg-purple-500 hover:bg-purple-700 text-white uppercase font-semibold py-2 px-4 rounded"
       @click="doSearch"
-    >
-      Search
-    </button>
+    >Search</button>
   </div>
 </template>
 

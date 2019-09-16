@@ -1,9 +1,7 @@
 <template>
   <div class="w-full px-2">
     <div class="px-4 py-4 rounded overflow-hidden shadow-lg bg-white">
-      <h2 class="font-bold text-gray-700 text-xl mb-2 leading-tight">
-        {{ collectionSpot.name }}
-      </h2>
+      <h2 class="font-bold text-gray-700 text-xl mb-2 leading-tight">{{ collectionSpot.name }}</h2>
 
       <p class="text-gray-600 text-base">
         {{ collectionSpot.address }}
@@ -20,6 +18,3 @@ export default {
   props: ["collectionSpot"]
 };
 </script>
-
-<style scoped>
-</style>

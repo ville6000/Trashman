@@ -20,6 +20,3 @@ export default {
   props: ["collectionSpots"]
 };
 </script>
-
-<style scoped>
-</style>
