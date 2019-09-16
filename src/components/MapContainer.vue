@@ -1,13 +1,6 @@
 <template>
   <div class="map-container overflow-hidden bg-white" v-if="validCollectionSpots.length > 0">
-    <l-map
-      ref="trashMap"
-      :zoom="zoom"
-      :center="center"
-      @update:zoom="zoomUpdated"
-      @update:center="centerUpdated"
-      @update:bounds="boundsUpdated"
-    >
+    <l-map ref="trashMap" :zoom="zoom" :center="center">
       <l-tile-layer :url="url"></l-tile-layer>
 
       <l-marker
@@ -52,15 +45,6 @@ export default {
     };
   },
   methods: {
-    zoomUpdated(zoom) {
-      this.zoom = zoom;
-    },
-    centerUpdated(center) {
-      this.center = center;
-    },
-    boundsUpdated(bounds) {
-      this.bounds = bounds;
-    },
     zoomToBounds() {
       if (
         this.validCollectionSpots.length === 0 ||
@@ -69,13 +53,14 @@ export default {
         return;
       }
 
-      const bounds = latLngBounds();
-      this.validCollectionSpots.forEach(spot => {
-        bounds.extend({
-          lat: spot.geometry.coordinates[1],
-          lng: spot.geometry.coordinates[0]
-        });
-      });
+      const bounds = latLngBounds(
+        this.validCollectionSpots.map(spot => {
+          return {
+            lat: spot.geometry.coordinates[1],
+            lng: spot.geometry.coordinates[0]
+          };
+        })
+      );
 
       if (bounds.isValid()) {
         this.$refs.trashMap.mapObject.fitBounds(bounds);
@@ -91,13 +76,10 @@ export default {
       });
     }
   },
-  watch: {
-    collectionSpots: function() {
+  updated: function() {
+    this.$nextTick(function() {
       this.zoomToBounds();
-    }
-  },
-  mounted() {
-    this.zoomToBounds();
+    });
   }
 };
 </script>
