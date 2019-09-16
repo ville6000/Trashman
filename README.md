@@ -1,11 +1,15 @@
 # Trashman
 
-Simple Vue.js app for learning purposes using https://kierratys.info API
+Simple Vue.js app for learning purposes using https://kierratys.info API.
+
+Live demo: https://cranky-volhard-a36d18.netlify.com/#/
 
 ## Project setup
 ```
 npm install
 ```
+
+`cp .env .env.local` and replace API key with your own.
 
 ### Compiles and hot-reloads for development
 ```
