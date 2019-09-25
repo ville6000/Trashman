@@ -72,7 +72,11 @@ export default {
       const zeroPoint = 0.0;
 
       return this.collectionSpots.filter(spot => {
-        return !spot.geometry.coordinates.includes(zeroPoint);
+        if (spot.geometry !== null) {
+          return !spot.geometry.coordinates.includes(zeroPoint);
+        }
+
+        return false;
       });
     }
   },
