@@ -8,6 +8,13 @@
         {{ collectionSpot.postal_code }}
         {{ collectionSpot.municipality }}
       </p>
+
+      <div class="flex space-x-2 text-gray-700 mt-4">
+        <div v-for="material in collectionSpot.materials" :key="material.code" class="text-sm p-1 bg-indigo-100">
+          {{ material.name }}
+        </div>
+
+      </div>
     </div>
   </div>
 </template>
