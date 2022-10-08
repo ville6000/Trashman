@@ -9,8 +9,8 @@
         {{ collectionSpot.municipality }}
       </p>
 
-      <div class="flex space-x-2 text-gray-700 mt-4">
-        <div v-for="material in collectionSpot.materials" :key="material.code" class="text-sm p-1 bg-indigo-100">
+      <div class="flex flex-wrap text-gray-700 mt-3">
+        <div v-for="material in collectionSpot.materials" :key="material.code" class="mb-2 mr-2 text-sm p-1 bg-indigo-100">
           {{ material.name }}
         </div>
 
