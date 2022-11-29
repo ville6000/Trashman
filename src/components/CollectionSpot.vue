@@ -1,6 +1,6 @@
 <template>
   <div class="w-full px-2">
-    <div class="px-4 py-4 rounded overflow-hidden shadow-lg bg-white">
+    <div class="px-4 pt-4 pb-3 rounded overflow-hidden shadow-lg bg-white">
       <h2 class="font-bold text-gray-700 text-xl mb-2 leading-tight">{{ collectionSpot.name }}</h2>
 
       <p class="text-gray-600 text-base">
@@ -10,7 +10,7 @@
       </p>
 
       <div class="flex flex-wrap text-gray-700 mt-3">
-        <div v-for="material in collectionSpot.materials" :key="material.code" class="mb-2 mr-2 text-sm p-1 bg-indigo-100">
+        <div v-for="material in collectionSpot.materials" :key="material.code" class="mb-2 mr-2 text-xs p-1 bg-indigo-100">
           {{ material.name }}
         </div>
 
